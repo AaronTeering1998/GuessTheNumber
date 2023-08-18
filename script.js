@@ -5,7 +5,6 @@ let maxGuesses;
 
 function init() {
     computerGuess = Math.floor(Math.random() * 100 + 1);
-    console.log(computerGuess);
     document.getElementById("newGameButton").style.display = "none";
     document.getElementById("gameArea").style.display = "none";
 }
@@ -13,6 +12,25 @@ function init() {
 function startGameView() {
     document.getElementById("welcomeScreen").style.display = "none";
     document.getElementById("gameArea").style.display = "block";
+}
+
+function gameEnd() {
+    document.getElementById("newGameButton").style.display = "inline";
+    document.getElementById("inputBox").setAttribute('readonly', 'readonly');
+}
+
+function reset() {
+    computerGuess = Math.floor(Math.random() * 100 + 1);
+    document.getElementById("newGameButton").style.display = "none";
+    document.getElementById("gameArea").style.display = "none";
+    document.getElementById("welcomeScreen").style.display = "block";
+    document.getElementById("inputBox").removeAttribute('readonly');
+    document.getElementById('inputBox').value = "";
+    document.getElementById('textOutput').innerHTML = "Your guess:";
+    userGuesses = [];
+    attempts = 0;
+    document.getElementById("guesses").innerHTML = "-";
+    document.getElementById('attempts').innerHTML = "0";
 }
 
 function easyMode() {
@@ -30,7 +48,6 @@ function compareGuess() {
     userGuesses.push(" " + userGuess);
     document.getElementById("guesses").innerHTML = userGuesses;
     attempts++;
-    document.getElementById('attempts').innerHTML = attempts;
     if (attempts < maxGuesses) {
         if(userGuess > computerGuess) {
             document.getElementById('textOutput').innerHTML = "Your guess is to high";
@@ -40,6 +57,7 @@ function compareGuess() {
             document.getElementById('inputBox').value = "";
         } else {
             document.getElementById('textOutput').innerHTML = "DING DING DING! We've got an winner.<br> You've got it in just " + attempts + " attempts";
+            gameEnd();
         }
     } else {
         if(userGuess != computerGuess) {
@@ -47,5 +65,6 @@ function compareGuess() {
         } else {
             document.getElementById('textOutput').innerHTML = "DING DING DING! We've got an winner.<br> You've got it in just " + attempts + " attempts";
         }
+        gameEnd();
     }
 }
