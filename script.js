@@ -3,6 +3,29 @@ let userGuesses = [];
 let attempts = 0;
 let maxGuesses;
 
+let low = 1;
+let high = 100;
+
+function updateRange() {
+    const rangeOutput = document.getElementById('rangeOutput');
+    rangeOutput.innerText = `${low} - ${high}`;
+    rangeOutput.style.marginLeft = low + '%';
+    rangeOutput.style.marginRight = 100 - high + '%';
+    rangeOutput.classList.add('flash');
+
+    const lowValue = document.getElementById('low');
+    lowValue.style.flex = low + '%';
+    lowValue.style.background = "#ef7b54";
+
+    const spaceValue = document.getElementById('space');
+    spaceValue.style.flex = high - low + '%';
+    spaceValue.style.background = "#83e1d0";
+
+    const highValue = document.getElementById('high');
+    highValue.style.flex = 100 - high + '%';
+    highValue.style.background = "#ef7b54"; 
+}
+
 function init() {
     computerGuess = Math.floor(Math.random() * 100 + 1);
     document.getElementById("newGameButton").style.display = "none";
@@ -31,6 +54,9 @@ function reset() {
     attempts = 0;
     document.getElementById("guesses").innerHTML = "-";
     document.getElementById('attempts').innerHTML = "0";
+    low = 0;
+    high = 100;
+    updateRange();
 }
 
 function easyMode() {
@@ -50,9 +76,15 @@ function compareGuess() {
     attempts++;
     if (attempts < maxGuesses) {
         if(userGuess > computerGuess) {
+            if (userGuess < high) {
+                high = userGuess;
+            }
             document.getElementById('textOutput').innerHTML = "Your guess is to high";
             document.getElementById('inputBox').value = "";
         } else if(userGuess < computerGuess) {
+            if (userGuess > low) {
+                low = userGuess;
+            }
             document.getElementById('textOutput').innerHTML = "Your guess is to low";
             document.getElementById('inputBox').value = "";
         } else {
@@ -67,4 +99,5 @@ function compareGuess() {
         }
         gameEnd();
     }
+    updateRange();
 }
