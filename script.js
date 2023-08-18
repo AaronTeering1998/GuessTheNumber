@@ -1,7 +1,9 @@
 let computerGuess;
+let userGuesses = [];
 
 function init() {
     computerGuess = Math.floor(Math.random() * 100 + 1);
+    console.log(computerGuess);
     document.getElementById("newGameButton").style.display = "none";
     document.getElementById("gameArea").style.display = "none";
 }
@@ -17,4 +19,20 @@ function easyMode() {
 
 function hardMode() {
     startGameView();
+}
+
+function compareGuess() {
+    const userGuess = Number(document.getElementById('inputBox').value);
+    userGuesses.push(" " + userGuess);
+    document.getElementById("guesses").innerHTML = userGuesses;
+
+    if(userGuess > computerGuess) {
+        document.getElementById('textOutput').innerHTML = "Your guess is to high";
+        document.getElementById('inputBox').value = "";
+    } else if(userGuess < computerGuess) {
+        document.getElementById('textOutput').innerHTML = "Your guess is to low";
+        document.getElementById('inputBox').value = "";
+    } else {
+        document.getElementById('textOutput').innerHTML = "DING DING DING! We've got an winner";
+    }
 }
