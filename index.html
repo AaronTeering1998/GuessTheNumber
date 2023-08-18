@@ -6,7 +6,7 @@
     <title>Guess the number!</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body onload="init()">
     <main>
         <!-- The Welcome screen -->
         <div id="welcomeScreen">
@@ -14,8 +14,8 @@
             <section>
                 <p>Select difficulty setting:</p>
                 <div class="button-wrapper">
-                    <button>Easy: 10 attempts</button>
-                    <button>Hard: 5 attempts</button>
+                    <button onclick="easyMode()">Easy: 10 attempts</button>
+                    <button onclick="hardMode()">Hard: 5 attempts</button>
                 </div>
             </section>
         </div>
